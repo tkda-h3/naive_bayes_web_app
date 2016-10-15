@@ -9,7 +9,7 @@ def index(request):
 
 def hello_forms(request):
     d = {
-        'your_name': request.GET.get('your_name')
+        'input_url': request.GET.get('input_url')
     }
     return render(request, 'forms.html', d)
 
