@@ -10,10 +10,13 @@
 		URL : {{ input_url|urlize }}
 		{% endif %}
 		<br/>
+		{% if pred_category_name == None %}
+		{% else %}
 		{% if pred_category_name == False %}
 		カテゴリは予測できませんでした
 		{% else %}
 		予測カテゴリ : {{ pred_category_name }}
+		{% endif %}
 		{% endif %}
 <div/>
 {% endblock %}
