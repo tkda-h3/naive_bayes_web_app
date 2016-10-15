@@ -1,17 +1,10 @@
 {% extends "base.html" %}
 {% block body %}
-{{ message }}
-<hr>
-<form method="get" action="">
-    {{ form.errors.your_name }}
-    <label>{{ form.your_name.label }} {{ form.your_name }}</label><br>
-
-    {{ form.errors.gender }}
-    <label>{{ form.gender.label }} {{ form.gender }}</label><br>
-
-    {{ form.errors.memo }}
-    <label style="vertical-align: top;">{{ form.memo.label }} {{ form.memo }}</label><br>
-
+<form action="" method="get">
+    <label>名前:<input type="text" size="20" name="your_name"></label>
     <input type="submit" value="送信">
 </form>
+{% if your_name %}
+{{ your_name }}さん、こんにちは。
+{% endif %}
 {% endblock %}
