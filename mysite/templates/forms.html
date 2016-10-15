@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<div>
+		<form action="" method="get">
+				<label>ニュースURL:<input type="text" size="20" name="input_url"></label>
+				<input type="submit" value="送信">
+		</form>
+		
+		{% if input_url %}
+		URL : {{ input_url|urlize }}
+		{% endif %}
+		<br/>
+		{% if pred_category_name %}
+		予測カテゴリ : {{ pred_category_name }}
+		{% endif %}
+<div/>
+{% endblock %}
