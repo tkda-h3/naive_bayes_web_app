@@ -10,6 +10,7 @@ import MeCab
 from gensim import corpora, matutils
 import numpy as np
 import os.path
+import sys
 
 def get_obj_from_pickle(file_path):
     with open(file_path, 'r') as f:
@@ -40,7 +41,7 @@ def calc_log_prob(word_cat_prob, cat_prob, doc): # doc : 1 feature vector
 
 
 def predict_y_of_input_url(input_url, dictionary,word_cat_prob, cat_prob):
-    text_of_input_url = get_content(input_url)
+    text_of_input_url = get_content(input_url)    
     word_list_of_input_url = get_words_list(text_of_input_url)
     bow_of_input_url = dictionary.doc2bow(word_list_of_input_url) #[(w_id1, w_id1_cnt), (w_id2, w_id2_cnt),...] 
     test_X = np.array([matutils.corpus2dense([bow_of_input_url], num_terms=len(dictionary)).T[0]])
@@ -54,7 +55,7 @@ def get_category_name(url):
     word_cat_prob = get_obj_from_pickle(dir_path+'word_cat_prob.dump')
     dictionary = get_obj_from_pickle(dir_path+'dictionay.dump')
     cvt_y_to_category_name = get_obj_from_pickle(dir_path+'cvt_y_to_category_name.dump')
-    pred_y_of_input_url = predict_y_of_input_url(url, dictionary, word_cat_prob, cat_prob)
+    pred_y_of_input_url = predict_y_of_input_url(url, dictionary, word_cat_prob, cat_prob)    
     pred_category_name_of_input_url = cvt_y_to_category_name[pred_y_of_input_url] #数字ラベルを変換
     return pred_category_name_of_input_url
 
@@ -66,8 +67,20 @@ def hello_forms(request):
         'input_url': request.GET.get('input_url'),
     }
     if d['input_url']:
-        d['pred_category_name'] = get_category_name(request.GET.get('input_url'))
-    #get_category_name(request.GET.get('input_url'))
+        try:
+            d['pred_category_name'] = get_category_name(request.GET.get('input_url'))
+            print '*'*30
+            print '*****      ' + d['pred_category_name']
+            print '*'*30            
+        except ValueError, instance:
+            print >> sys.stderr, instance
+            d['pred_category_name'] = False
+        except urllib2.HTTPError, instance:
+            print >> sys.stderr, instance
+            d['pred_category_name'] = False
+        except urllib2.URLError, instance:
+            print >> sys.stderr, instance
+            d['pred_category_name'] = False
     
     return render(request, 'forms.html', d)
 

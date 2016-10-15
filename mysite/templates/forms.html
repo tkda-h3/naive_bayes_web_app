@@ -2,7 +2,7 @@
 {% block body %}
 <div>
 		<form action="" method="get">
-				<label>ニュースURL:<input type="text" size="20" name="input_url"></label>
+				<label>GunosyニュースURL:<input type="text" size="20" name="input_url"></label>
 				<input type="submit" value="送信">
 		</form>
 		
@@ -10,7 +10,9 @@
 		URL : {{ input_url|urlize }}
 		{% endif %}
 		<br/>
-		{% if pred_category_name %}
+		{% if pred_category_name == False %}
+		カテゴリは予測できませんでした
+		{% else %}
 		予測カテゴリ : {{ pred_category_name }}
 		{% endif %}
 <div/>
