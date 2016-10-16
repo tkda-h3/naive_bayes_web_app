@@ -6,10 +6,7 @@ import sys
 from naive_bayes import *
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
-def hello_forms(request): 
+def index(request): 
     d = {
         'input_url': request.GET.get('input_url'),
     }
