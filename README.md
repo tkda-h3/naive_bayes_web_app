@@ -9,7 +9,7 @@
 - scikit-learn (0.18)
 
 ## 学習
-[learning.ipynb](https://github.com/tkda-h3/naive_bayes_web_app/blob/master/learning.ipynb)で学習し、学習結果をpickleで保存した。
+[learning.ipynb](https://github.com/tkda-h3/naive_bayes_web_app/blob/master/learning.ipynb)で学習し、学習結果を`pickle`で保存した。
 
 ## 使い方
 ### Djangoアプリの起動
