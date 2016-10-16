@@ -14,13 +14,13 @@ def index(request):
         try:
             d['pred_category_name'] = get_category_name(request.GET.get('input_url'))
         except ValueError as instance:
-            print >> sys.stderr, instance
+            print(instance, file=sys.stderr)
             d['pred_category_name'] = False
-        except urllib.HTTPError as instance:
-            print >> sys.stderr, instance
+        except urllib.error.HTTPError as instance:
+            print(instance, file=sys.stderr)
             d['pred_category_name'] = False
-        except urllib.URLError as instance:
-            print >> sys.stderr, instance
+        except urllib.error.URLError as instance:
+            print(instance, file=sys.stderr)
             d['pred_category_name'] = False
     
     return render(request, 'forms.html', d)
