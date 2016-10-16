@@ -13,7 +13,7 @@
 
 ## 使い方
 ### Djangoアプリの起動
-`site`ディレクトリで
+`mysite`ディレクトリで
 ```
 $ python manage.py runserver
 ```
