@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 import sys
-from naive_bayes import *
-
+from .naive_bayes import *
+import urllib
 
 def index(request): 
     d = {
@@ -13,13 +13,13 @@ def index(request):
     if d['input_url']:
         try:
             d['pred_category_name'] = get_category_name(request.GET.get('input_url'))
-        except ValueError, instance:
+        except ValueError as instance:
             print >> sys.stderr, instance
             d['pred_category_name'] = False
-        except urllib2.HTTPError, instance:
+        except urllib.HTTPError as instance:
             print >> sys.stderr, instance
             d['pred_category_name'] = False
-        except urllib2.URLError, instance:
+        except urllib.URLError as instance:
             print >> sys.stderr, instance
             d['pred_category_name'] = False
     

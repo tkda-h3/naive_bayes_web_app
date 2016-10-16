@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
-from prettyprint import pp
+from itertools import starmap
 import pickle
-import urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import MeCab
 from gensim import corpora, matutils
@@ -12,17 +12,18 @@ import os.path
 
 
 def get_obj_from_pickle(file_path):
-    with open(file_path, 'r') as f:
+    with open(file_path, 'rb') as f:
         return pickle.load(f)
 
 def get_content(page_url):
-    html = urllib2.urlopen(page_url)
-    soup = BeautifulSoup(html, "lxml")
+    html = urlopen(page_url)
+    soup = BeautifulSoup(html, "html.parser")
     content_tag = soup.select("body div.main.article_main > div.article.gtm-click")
-    return ('').join( [text_tag.get_text() for text_tag in content_tag] ).encode('utf-8')
+    return ('').join( [text_tag.get_text() for text_tag in content_tag] )
 
 def get_words_list(text):
     mecab = MeCab.Tagger('mecabrc')
+    mecab.parse('') # これ重要！！！！ 謎のバグに対処する
     node = mecab.parseToNode(text)
     words_list = []
     while node:
