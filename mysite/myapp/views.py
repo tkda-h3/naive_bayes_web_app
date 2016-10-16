@@ -14,14 +14,8 @@ def hello_forms(request):
         'input_url': request.GET.get('input_url'),
     }
     if d['input_url']:
-        print '*'*30
-        print "d['input_url'] ==", d['input_url']
-        print '*'*30
         try:
             d['pred_category_name'] = get_category_name(request.GET.get('input_url'))
-            print '*'*30
-            print '*****      ' + d['pred_category_name']
-            print '*'*30            
         except ValueError, instance:
             print >> sys.stderr, instance
             d['pred_category_name'] = False
