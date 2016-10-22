@@ -1,0 +1,4 @@
+beautifulsoup4==4.5.1
+mecab-python3==0.7
+gensim==0.13.2
+numpy==1.11.2
