@@ -6,13 +6,15 @@ import sys
 from .naive_bayes import *
 import urllib
 
-def index(request): 
+
+def index(request):
     d = {
         'input_url': request.GET.get('input_url'),
     }
     if d['input_url']:
         try:
-            d['pred_category_name'] = get_category_name(request.GET.get('input_url'))
+            d['pred_category_name'] = get_category_name(
+                request.GET.get('input_url'))
         except ValueError as instance:
             print(instance, file=sys.stderr)
             d['pred_category_name'] = False
@@ -22,7 +24,5 @@ def index(request):
         except urllib.error.URLError as instance:
             print(instance, file=sys.stderr)
             d['pred_category_name'] = False
-    
+
     return render(request, 'forms.html', d)
-
-
