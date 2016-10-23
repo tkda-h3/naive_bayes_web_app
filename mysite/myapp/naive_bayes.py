@@ -9,7 +9,7 @@ import MeCab
 from gensim import corpora, matutils
 import numpy as np
 import os.path
-
+from django.conf import settings
 
 def get_obj_from_pickle(file_path):
     with open(file_path, 'rb') as f:
@@ -50,7 +50,7 @@ def predict_y_of_input_url(input_url, dictionary,word_cat_prob, cat_prob):
 
 def get_category_name(url):
     # deserialize
-    dir_path = os.path.abspath('./../')+'/'
+    dir_path = os.path.join(settings.BASE_DIR, '../')
     cat_prob = get_obj_from_pickle(dir_path+'cat_prob.dump')
     word_cat_prob = get_obj_from_pickle(dir_path+'word_cat_prob.dump')
     dictionary = get_obj_from_pickle(dir_path+'dictionay.dump')
