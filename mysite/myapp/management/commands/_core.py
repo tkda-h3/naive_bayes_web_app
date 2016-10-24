@@ -15,7 +15,7 @@ def get_categories(url):
     soup = BeautifulSoup(html, 'html.parser')
     a_list = soup.select("body > nav > ul > li > a")[1:-1]
     #categories = list(map(lambda a: (a.get("href"), a.string), a_list))
-    categories = list(map(lambda a: Category(a.string, a.get("href")), a_list))
+    categories = list(map(lambda a: Category(str(a.string), a.get("href")), a_list))
     return categories
 
 
