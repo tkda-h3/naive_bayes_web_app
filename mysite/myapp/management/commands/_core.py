@@ -7,12 +7,15 @@ import MeCab
 import numpy as np
 from sklearn.metrics import f1_score
 
+from ._category import Category
+
 
 def get_categories(url):
     html = urlopen(url)
     soup = BeautifulSoup(html, 'html.parser')
     a_list = soup.select("body > nav > ul > li > a")[1:-1]
-    categories = list(map(lambda a: (a.get("href"), a.string), a_list))
+    #categories = list(map(lambda a: (a.get("href"), a.string), a_list))
+    categories = list(map(lambda a: Category(a.string, a.get("href")), a_list))
     return categories
 
 
@@ -61,7 +64,7 @@ def calc_cat(y):
     label_kinds_num = len(np.unique(y))
     ans = np.empty(label_kinds_num)
     for i in range(label_kinds_num):
-        ans[i] = len(np.argwhere(y == i)[:, 0]) / 1.0*len(y)
+        ans[i] = len(np.argwhere(y == i)[:, 0]) / 1.0 * len(y)
     return ans
 
 

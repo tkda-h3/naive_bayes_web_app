@@ -31,14 +31,15 @@ class Command(BaseCommand):
         save_flag = options['save']
         # self.stdout.write(str(page_num), ending='\n')
 
+        # [Category_obj1, Category_obj2, ...]
         categories = get_categories("https://gunosy.com/")
         all_contents = []
         all_links = []
         all_labels = []
-        for i, url_info in enumerate(categories):
+        for i, category in enumerate(categories):
             for page_num in range(1, page_num + 1):
                 pager_query = '?page=%d' % page_num
-                url = url_info[0] + pager_query
+                url = category.url + pager_query
                 print(url)
                 links, contents = get_links_and_contents(url)
                 all_links.extend(links)
@@ -79,7 +80,7 @@ class Command(BaseCommand):
             cat_prob = calc_cat(y)
             word_cat_prob = calc_each_word_bar_cat(X, y)
             cvt_y_to_category_name = dict(list(starmap(lambda i, x: (
-                i, str(x[1])), enumerate(categories))))  # ラベルy から　カテゴリ名に変換するdict
+                i, x.name), enumerate(categories))))  # ラベルy から　カテゴリ名に変換するdict
             dir_path = (os.path.join(settings.BASE_DIR, '../'))
             save_as_pickle(dir_path + 'dictionay.dump', dictionary)
             save_as_pickle(dir_path + 'cat_prob.dump', cat_prob)
