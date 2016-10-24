@@ -9,4 +9,3 @@ class HelloForm(forms.Form):
         required=True,
         widget=forms.TextInput()
     )
-    
